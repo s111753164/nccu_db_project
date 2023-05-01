@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+   <body>
+
+    <h1>所有讀者</h1>
+    <br><hr>
+
+    {{ msg }}
+
+      <table border = 1>
+         <thead>
+            <td>姓名</td>
+            <td>身分證字號</td>
+            <td>地址</td>
+            <td>信箱</td>
+            <td>電話</td>
+         </thead>
+         
+         {% for row in readers %}  
+            <tr>
+               <td>{{row["name"]}}</td>
+               <td>{{row["ssn"]}}</td>
+               <td> {{row["address"]}}</td>
+               <td>{{row['mail']}}</td>
+               <td>{{row['phone']}}</td>	
+            </tr>
+         {% endfor %}
+      </table>
+     
+
+   </body>
+</html>
