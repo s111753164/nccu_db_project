@@ -1,1 +1,2 @@
-# nccu_db_project
+# About project
+This is the end-of-term project for Spring 2023 Database Systems --Library Management System
