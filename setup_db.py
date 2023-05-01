@@ -6,15 +6,15 @@ with open('./books.csv', newline='', encoding="utf-8") as f:
     books = [
         (row['ISBN'], row['書名'], row['作者'], row['分類'], row['版次'])
         for row in csv_reader
-    ]
+        ]
 
 with open('create_db.sql', encoding="utf-8") as f:  
     create_db_sql = f.read()
 
-db = sqlite3.connect('members.db')
+db = sqlite3.connect('books.db')
 with db:
     db.executescript(create_db_sql)
     db.executemany(
-        'INSERT INTO  members (name, group_name) VALUES (?, ?)',
-        members
+        'INSERT INTO  books(ISBN, title, author, category, version) VALUES (?, ?, ?, ?, ?)',
+        books
     )
