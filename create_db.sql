@@ -6,18 +6,18 @@ CREATE TABLE books (
     `version` TEXT
 );
 
--- CREATE TABLE readers (
---     `rname` TEXT,
---     `ssn` TEXT PRIMARY KEY,
---     `address` TEXT,
---     `mail` TEXT,
---     `phone` TEXT
--- );
+CREATE TABLE readers (
+    `rname` TEXT,
+    `ssn` TEXT PRIMARY KEY,
+    `address` TEXT,
+    `mail` TEXT,
+    `phone` TEXT
+);
 
--- CREATE TABLE staffs (
---     `sname` TEXT,
---     `empid` TEXT PRIMARY KEY,
--- );
+CREATE TABLE staffs (
+    `sname` TEXT,
+    `empid` TEXT PRIMARY KEY
+);
 
 -- CREATE TABLE publishers (
 --     `publisher_id` INTEGER PRIMARY KEY ASC AUTOINCREMENT,
