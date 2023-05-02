@@ -12,6 +12,22 @@ app.secret_key = 'nccugogo'
 def home():
     return render_template('home.html')
 
+@app.route('/book_search',methods = ['POST', 'GET'])
+def book_search():
+    if request.method == 'POST':
+      try:
+         book_search = request.form["book_search"]
+         
+         with sql.connect("books.db") as con:
+            cur = con.cursor()
+            cur.execute("select * from books where title LIKE '%book_search%'")
+            book_search = cur.fetchall();
+            return render_template('book_search.html', book_search = book_search)
+            con.commit()
+      except:
+         con.rollback()
+         msg = "查詢失敗，請聯絡管理員！"
+
 @app.route('/booklist')
 def booklist():
     con = sql.connect("books.db")
