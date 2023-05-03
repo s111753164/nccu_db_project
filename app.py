@@ -24,16 +24,22 @@ def books():
     
 @app.route('/r_signin',methods = ['POST'])
 def r_signin():
-        con = sql.connect("readers.db")
-        con.row_factory = sql.Row
-        cur = con.cursor()
-        cur.execute("SELECT * FROM readers WHERE name=? and password=?", (request.form["name"], request.form["password"]))
-        people = cur.fetchall()
-        if len(people) == 0:
-          return redirect("result.html", msg = "帳號或密碼錯誤")
-        session["reader"] = request.form["name"]
-        return redirect("/member")
+    con = sql.connect("readers.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    rname=request.form["rname"]
+    rpassword=request.form["password"]
+    cur.execute("SELECT * FROM readers WHERE rname=? and password=?", (rname, rpassword))
+    people = cur.fetchall()
+    if len(people) == 0:
+        return redirect("/result?msg=帳號或密碼錯誤")
+           
+    session["reader"] = rname
+    return redirect("/member")
        
+@app.route('/member')
+def member():
+    
 
 @app.route('/booklist')
 def booklist():
