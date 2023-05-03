@@ -22,10 +22,10 @@ with db:
 db = sqlite3.connect('readers.db')
 with db:
     db.executescript(create_db_sql)
-    data = ('dylan','b122456731','台北市文山區','xxx@gmail.com','0935641297')
+    data = ('dylan','b122456731','台北市文山區','xxx@gmail.com','0935641297','5897')
     cursor = db.cursor()
     cursor.execute(
-        'INSERT INTO readers(rname, ssn, address, mail, phone) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO readers(rname, ssn, address, mail, phone, password) VALUES (?, ?, ?, ?, ?, ?)',
         data
     )
 

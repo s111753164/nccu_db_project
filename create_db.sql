@@ -11,7 +11,8 @@ CREATE TABLE readers (
     `ssn` TEXT PRIMARY KEY,
     `address` TEXT,
     `mail` TEXT,
-    `phone` TEXT
+    `phone` TEXT,
+    `password` password
 );
 
 CREATE TABLE staffs (
