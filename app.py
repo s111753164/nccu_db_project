@@ -22,7 +22,18 @@ def books():
     books = cur.fetchall();
     return render_template("book_search.html", book_search = books)
     
-    
+@app.route('/r_signin',methods = ['POST'])
+def r_signin():
+        con = sql.connect("readers.db")
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute("SELECT * FROM readers WHERE name=? and password=?", (request.form["name"], request.form["password"]))
+        people = cur.fetchall()
+        if len(people) == 0:
+          return redirect("result.html", msg = "帳號或密碼錯誤")
+        session["reader"] = request.form["name"]
+        return redirect("/member")
+       
 
 @app.route('/booklist')
 def booklist():
@@ -97,7 +108,7 @@ def s_signup():
 @app.route("/result")
 def error():
     message = request.args.get("msg", "發生錯誤，請聯繫圖書館")
-    return render_template("result.html", message=message)
+    return render_template("result.html", msg=message)
 
 if __name__ == '__main__':
     app.run(debug=True)
