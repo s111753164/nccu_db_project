@@ -140,8 +140,9 @@ def r_signin():
     session["reader"] = rname
     return redirect("/r_member")
 
-@app.route('/s_signin',methods = ['POST'])
+@app.route('/s_signin',methods = ['POST', 'GET'])
 def s_signin():
+  if request.method == 'POST':
     con = sql.connect("staffs.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -154,6 +155,13 @@ def s_signin():
     if len(people) == 0:
         return redirect("/result?msg=帳號或密碼錯誤")
     session["staff"] = empid
+    return render_template("/s_member.html", sname = sname)
+  else:
+    con = sql.connect("staffs.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT sname FROM staffs WHERE empid=?", (session["staff"],))
+    sname = cur.fetchone()[0]
     return render_template("/s_member.html", sname = sname)
 
 @app.route('/s_member')
