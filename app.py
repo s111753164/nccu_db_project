@@ -37,8 +37,8 @@ def r_signin():
     session["reader"] = rname
     return redirect("/member")
        
-@app.route('/member')
-def member():
+# @app.route('/member')
+# def member():
     
 
 @app.route('/booklist')
