@@ -21,6 +21,10 @@ def books():
     
     books = cur.fetchall();
     return render_template("book_search.html", book_search = books)
+
+@app.route('/book_state')
+def borrow():
+    
     
 @app.route('/r_signin',methods = ['POST'])
 def r_signin():
@@ -33,14 +37,21 @@ def r_signin():
     people = cur.fetchall()
     if len(people) == 0:
         return redirect("/result?msg=帳號或密碼錯誤")
-           
     session["reader"] = rname
-    return redirect("/member")
-       
-# @app.route('/member')
-# def member():
-    
+    return redirect("/r_member")
 
+@app.route('/r_signout')
+def r_signout():
+  del session["reader"]
+  return redirect("/")
+       
+@app.route('/r_member')
+def member():
+  if "reader" in session:
+    return render_template("r_member.html", rname = session["reader"])
+  else:
+    return render_template("/")
+    
 @app.route('/booklist')
 def booklist():
     con = sql.connect("books.db")

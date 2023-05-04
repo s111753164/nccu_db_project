@@ -26,15 +26,15 @@ CREATE TABLE staffs (
 --     `YearOfPublication` TEXT
 -- );
 
--- CREATE TABLE reports (
---     `Reg_no` INTEGER PRIMARY KEY ASC AUTOINCREMENT,
---     `User_id` TEXT,
---     `book_no` TEXT,
---     `issue` DATETIME DEFAULT (datetime('now', 'localtime')),
---     `return` DATETIME DEFAULT (datetime('now', 'localtime')),
---     FOREIGN KEY(`User_id`) REFERENCES `readers`(`ssn`)
---     FOREIGN KEY(`book_no`) REFERENCES `books`(`ISBN`)
--- );
+CREATE TABLE reports (
+    `Reg_no` INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    `User_id` TEXT,
+    `book_no` TEXT,
+    `issue` DATETIME DEFAULT (datetime('now', 'localtime')),
+    `return` DATETIME DEFAULT (datetime('now', 'localtime')),
+    FOREIGN KEY(`User_id`) REFERENCES `readers`(`ssn`)
+    FOREIGN KEY(`book_no`) REFERENCES `books`(`ISBN`)
+);
 
 
 

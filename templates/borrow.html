@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title> 我要借閱 </title>
+</head>
+
+<body>
+
+   <h1>我要借閱</h1>
+   <hr>
+   <table border=1>
+      <thead>
+         <td>ISBN</td>
+         <td>書名</td>
+         <td>作者</td>
+         <td>分類</td>
+         <td>版次</td>
+      </thead>
+
+      {% for row in books %}
+      <tr>
+         <td>{{row["ISBN"]}}</td>
+         <td>{{row["title"]}}</td>
+         <td>{{row["author"]}}</td>
+         <td>{{row['category']}}</td>
+         <td>{{row['version']}}</td>
+         <td>
+            {% if row["ISBN"] in report %}
+            不在架上
+            {% else %}
+            <a href="/borrow?book={{row['ISBN']}}">我要借書</a>
+            {% endif %}
+         </td>
+      </tr>
+      {% endfor %}
+   </table>
+
+</body>
+
+</html>

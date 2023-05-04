@@ -38,3 +38,13 @@ with db:
         'INSERT INTO staffs(sname, empid) VALUES (?, ?)',
         data2
     )
+
+db = sqlite3.connect('reports.db')
+with db:
+    db.executescript(create_db_sql)
+    data3 = ('dylan','b122456731')
+    cursor = db.cursor()
+    cursor.execute(
+        'INSERT INTO reports(Reg_no, User_id, book_no, issue, return) VALUES (1, b122456731, 9786267252246, )',
+        data3
+    )
