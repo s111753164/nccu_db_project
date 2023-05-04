@@ -35,6 +35,3 @@ CREATE TABLE reports (
     FOREIGN KEY(`User_id`) REFERENCES `readers`(`ssn`)
     FOREIGN KEY(`book_no`) REFERENCES `books`(`ISBN`)
 );
-
-
-

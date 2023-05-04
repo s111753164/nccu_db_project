@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border = 1>
+        <thead>
+           <td>編號</td>
+           <td>使用者ID</td>
+           <td>ISBN</td>
+           <td>借出日期</td>
+           <td>歸還日期</td>
+        </thead>
+        
+        {% for row in reports %}  
+           <tr>
+              <td>{{row["Reg_no"]}}</td>
+              <td>{{row["User_id"]}}</td>
+              <td>{{row["book_no"]}}</td>
+              <td>{{row['issue']}}</td>
+              <td>{{row['return']}}</td>	
+           </tr>
+        {% endfor %}
+     </table>
+</body>
+</html>

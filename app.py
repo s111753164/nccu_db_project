@@ -19,11 +19,72 @@ def books():
     cur = con.cursor()
     cur.execute("select * from books where title LIKE '%{}%'".format(request.args.get("book_search", "")))
     
-    books = cur.fetchall();
+    books = cur.fetchall()
     return render_template("book_search.html", book_search = books)
 
-@app.route('/book_state')
+# @app.route('/borrow')
+# def borrow():
+#     con = sql.connect("readers.db")
+#     con.row_factory = sql.Row
+#     cur = con.cursor()
+#     reader = session["reader"]
+#     cur.execute("select ssn from readers where rname = ?", reader)
+    
+#     people = cur.fetchone()
+#     # 1
+#     ISBN = request.args.get("row['ISBN']")
+#     con = sql.connect("reports.db")
+#     con.row_factory = sql.Row
+    
+#     cur = con.cursor()
+#     cur.execute("INSERT INTO reports(User_id, book_no) VALUES (?, ?)",(people,ISBN))
+#     return render_template("result.html", msg ="借閱成功！")
+##
+
+@app.route('/book_available')
+def book_available():
+    con = sql.connect("books.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select * from books")
+    books = cur.fetchall()
+
+
+    con1 = sql.connect("reports.db")
+    con1.row_factory = sql.Row
+    cur1 = con1.cursor()
+    cur1.execute("select book_no from reports")
+    reports = cur1.fetchall()
+    return render_template("book_available.html", books = books, reports = reports)
+
+@app.route('/borrow')
 def borrow():
+    con = sql.connect("readers.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    reader = session["reader"]
+    cur.execute("SELECT ssn FROM readers WHERE rname = ?", (reader,))
+    people = cur.fetchone()[0]
+
+    ISBN = request.args.get("book")
+    con = sql.connect("reports.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("INSERT INTO reports(User_id, book_no) VALUES (?, ?)", (people, ISBN))
+    con.commit()
+    return render_template("result.html", msg="借閱成功！")
+
+@app.route('/test_report')
+def test_report():
+    con = sql.connect("reports.db")
+    con.row_factory = sql.Row
+    
+    cur = con.cursor()
+    cur.execute("select * from reports")
+    
+    reports = cur.fetchall()
+    return render_template("test_report.html", reports = reports)
+    
     
     
 @app.route('/r_signin',methods = ['POST'])
@@ -60,7 +121,7 @@ def booklist():
     cur = con.cursor()
     cur.execute("select * from books")
     
-    books = cur.fetchall();
+    books = cur.fetchall()
     return render_template("booklist.html", books = books)
 
 @app.route('/staff')
