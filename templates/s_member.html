@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>讀者專區</title>
+    <title>圖書管理員專區</title>
 </head>
 <body>
-    <h1>{{ rname }}你好，歡迎你回來</h1>
+    <h1>{{ sname }}你好，歡迎你回來</h1>
     <br>
-    <a href="/book_available">我要借書</a>
+    <a href="/reader_list">查看所有讀者</a>
     <br>
-    <a href="/return">我要還書</a>
+    <a href="/s_profile">查看個人資料</a>
     <br>
     <a href="/modify0">修改個人資料</a>
     <br>
     <a href="/recommend">書籍薦購</a>
     <br>
     <br>
-    <input type="button" value="登出" onclick="location.href='/r_signout'">
+    <input type="button" value="登出" onclick="location.href='/s_signout'">
 </body>
 </html>

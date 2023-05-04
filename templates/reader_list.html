@@ -18,7 +18,7 @@
          
          {% for row in readers %}  
             <tr>
-               <td>{{row["name"]}}</td>
+               <td>{{row["rname"]}}</td>
                <td>{{row["ssn"]}}</td>
                <td> {{row["address"]}}</td>
                <td>{{row['mail']}}</td>
@@ -26,6 +26,8 @@
             </tr>
          {% endfor %}
       </table>
+      <br>
+    <div><a href="/s_signin">回到控制面板</a></div>
      
 
    </body>

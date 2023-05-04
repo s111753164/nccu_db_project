@@ -17,7 +17,8 @@ CREATE TABLE readers (
 
 CREATE TABLE staffs (
     `sname` TEXT,
-    `empid` TEXT PRIMARY KEY
+    `empid` TEXT PRIMARY KEY,
+    `password` TEXT
 );
 
 -- CREATE TABLE publishers (

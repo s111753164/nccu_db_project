@@ -33,7 +33,7 @@ with db:
     db.executescript(create_db_sql)
     cursor = db.cursor()
     cursor.execute(
-        'INSERT INTO staffs(sname, empid) VALUES ("dylan","b122456731")'
+        'INSERT INTO staffs(sname, empid, password) VALUES ("dylan","s111753164", "1234")'
     )
 
 db = sqlite3.connect('reports.db')

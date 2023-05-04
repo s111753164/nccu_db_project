@@ -22,6 +22,45 @@ def books():
     books = cur.fetchall()
     return render_template("book_search.html", book_search = books)
 
+@app.route('/modify0')
+def modify0():
+    con = sql.connect("readers.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    reader = session["reader"]
+    cur.execute("SELECT ssn FROM readers WHERE rname = ?", (reader,))
+    people = cur.fetchone()[0]
+    return render_template("modify.html", rname = reader, ssn = people)
+
+@app.route('/modify',methods = ['POST', 'GET'])
+def modify():
+   if request.method == 'POST':
+      try:
+         address = request.form["address"]
+         mail = request.form["mail"]
+         phone = request.form["phone"]
+         password = request.form["password"]
+         
+         with sql.connect("readers.db") as con:
+            cur = con.cursor()
+            if address:
+                cur.execute("update readers set address=? WHERE rname=?", (address, session["reader"]))
+            if mail:
+                cur.execute("update readers set mail=? WHERE rname=?", (mail, session["reader"]))
+            if phone:
+                cur.execute("update readers set phone=? WHERE rname=?", (phone, session["reader"]))
+            if password:
+                cur.execute("update readers set password=? WHERE rname=?", (password, session["reader"]))
+            con.commit()
+            msg = "資料修改成功！"
+      except:
+         con.rollback()
+         msg = "讀者註冊失敗，請聯絡管理員！"
+      finally:
+         con.close()
+         return render_template("result.html",msg = msg)
+         
+
 # @app.route('/borrow')
 # def borrow():
 #     con = sql.connect("readers.db")
@@ -101,13 +140,41 @@ def r_signin():
     session["reader"] = rname
     return redirect("/r_member")
 
+@app.route('/s_signin',methods = ['POST'])
+def s_signin():
+    con = sql.connect("staffs.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    empid=request.form["empid"]
+    spassword=request.form["password"]
+    cur.execute("SELECT * FROM staffs WHERE empid=? and password=?", (empid, spassword))
+    people = cur.fetchall()
+    cur.execute("SELECT sname FROM staffs WHERE empid=? and password=?", (empid, spassword,))
+    sname = cur.fetchone()[0]
+    if len(people) == 0:
+        return redirect("/result?msg=帳號或密碼錯誤")
+    session["staff"] = empid
+    return render_template("/s_member.html", sname = sname)
+
+@app.route('/s_member')
+def s_member():
+  if "staff" in session:
+    return render_template("s_member.html", sname = session["staff"])
+  else:
+    return render_template("/")
+
 @app.route('/r_signout')
 def r_signout():
   del session["reader"]
   return redirect("/")
+
+@app.route('/s_signout')
+def s_signout():
+  del session["staff"]
+  return redirect("/")
        
 @app.route('/r_member')
-def member():
+def r_member():
   if "reader" in session:
     return render_template("r_member.html", rname = session["reader"])
   else:
@@ -123,6 +190,20 @@ def booklist():
     
     books = cur.fetchall()
     return render_template("booklist.html", books = books)
+
+@app.route('/reader_list')
+def reader_list():
+  if "staff" in session:
+    con = sql.connect("readers.db")
+    con.row_factory = sql.Row
+    
+    cur = con.cursor()
+    cur.execute("select * from readers")
+    
+    readers = cur.fetchall()
+    return render_template("reader_list.html", readers = readers)
+  else:
+    return redirect("/")
 
 @app.route('/staff')
 def staff():
@@ -158,10 +239,10 @@ def r_signup():
       except:
          con.rollback()
          msg = "讀者註冊失敗，請聯絡管理員！"
-         
       finally:
-         return render_template("result.html",msg = msg)
          con.close()
+         return render_template("result.html",msg = msg)
+         
 
 @app.route('/s_signup',methods = ['POST', 'GET'])
 def s_signup():
@@ -169,10 +250,11 @@ def s_signup():
       try:
          sname = request.form["sname"]
          empid = request.form["empid"]
+         password = request.form["password"]
          
          with sql.connect("staffs.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO staffs (sname, empid) VALUES (?,?)",(sname, empid) )
+            cur.execute("INSERT INTO staffs (sname, empid, password) VALUES (?,?,?)",(sname, empid, password) )
             con.commit()
             msg = "管理員帳號已成功建立！"
       except:
@@ -180,11 +262,11 @@ def s_signup():
          msg = "管理員註冊失敗，請聯絡管理員！"
          
       finally:
-         return render_template("result.html",msg = msg)
          con.close()
-      
+         return render_template("result.html",msg = msg)
+         
 @app.route("/result")
-def error():
+def result():
     message = request.args.get("msg", "發生錯誤，請聯繫圖書館")
     return render_template("result.html", msg=message)
 
