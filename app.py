@@ -1,11 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3 as sql
 
-app = Flask(
-    __name__,
-    static_folder="public",
-    static_url_path="/"
-)
+app = Flask(__name__)
 app.secret_key = 'nccugogo'
 
 @app.route('/')
@@ -129,8 +125,8 @@ def borrow():
     con.commit()
     return render_template("result.html", msg="借閱成功！")
 
-@app.route('/test_report')
-def test_report():
+@app.route('/reports')
+def reports():
     con = sql.connect("reports.db")
     con.row_factory = sql.Row
     
@@ -138,7 +134,16 @@ def test_report():
     cur.execute("select * from reports")
     
     reports = cur.fetchall()
-    return render_template("test_report.html", reports = reports)
+    return render_template("reports.html", reports = reports)
+
+@app.route('/d_report')
+def d_report():
+    con = sql.connect("reports.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("DELETE FROM reports WHERE book_no=?",(request.args.get("book")))
+    con.commit()
+    return render_template("result.html", msg="借閱紀錄刪除成功！")
     
 @app.route('/r_signin',methods = ['POST'])
 def r_signin():

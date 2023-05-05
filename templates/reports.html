@@ -13,7 +13,8 @@
            <td>使用者ID</td>
            <td>ISBN</td>
            <td>借出日期</td>
-           <td>歸還日期</td>
+           <td>應歸還日期</td>
+           <td>刪除</td>
         </thead>
         
         {% for row in reports %}  
@@ -23,6 +24,9 @@
               <td>{{row["book_no"]}}</td>
               <td>{{row['issue']}}</td>
               <td>{{row['return']}}</td>	
+              <td>
+               <a href="/d_report?book={{row['book_no']}}">刪除這筆紀錄</a>
+            </td>
            </tr>
         {% endfor %}
      </table>

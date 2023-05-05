@@ -10,8 +10,23 @@
 <a href="/booklist">查看所有書籍</a>
 <br>
 <br>
-<a href="/staff">我是管理員</a>
 <br>
-<a href="/reader">我是讀者</a>
+<h1>管理員登入</h1>
+    <form action="/s_member" method="POST">
+        員工編號 <input type="text" name="empid" /><br/>
+        輸入密碼 <input type="password" name="password" /><br/>
+        <button>登入</button>
+    </form>
+    <br>
+    <div><a href="/new_staff">註冊管理員帳號</a></div>
+	<br>
+	<h1>讀者會員登入</h1>
+	<form action="/r_signin" method="POST">
+		姓名 <input type="text" name="rname" /><br />
+		密碼 <input type="password" name="password" /><br />
+		<button>登入</button>
+	</form>
+	<br>
+	<div><a href="/new_reader">註冊讀者帳號</a></div>
  </body>
  </html>
