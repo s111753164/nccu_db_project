@@ -80,6 +80,19 @@ def modify():
 #     return render_template("result.html", msg ="借閱成功！")
 ##
 
+# @app.route('/book_available')
+# def book_available():
+#     if "reader" in session:
+#         con = sql.connect("books.db")
+#         con.row_factory = sql.Row
+#         cur = con.cursor()
+#         cur.execute("SELECT * FROM books LEFT JOIN reports ON books.ISBN=reports.book_no WHERE reports.return IS NULL OR reports.return = ''")
+#         books = cur.fetchall()
+
+#         return render_template("book_available.html", books=books)
+#     else:
+#         return redirect("/")
+    
 @app.route('/book_available')
 def book_available():
   if "reader" in session:

@@ -28,11 +28,7 @@
          <td>{{row["category"]}}</td>
          <td>{{row["version"]}}</td>
          <td>
-            {% if row["ISBN"] not in reports %}
             <a href="/borrow?book={{row['ISBN']}}">我要借書</a>
-               {% else %}
-               不在架上
-            {% endif %}
          </td>
       </tr>
       {% endfor %}
