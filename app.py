@@ -140,7 +140,7 @@ def r_signin():
     session["reader"] = rname
     return redirect("/r_member")
 
-@app.route('/s_signin',methods = ['POST', 'GET'])
+@app.route('/s_member',methods = ['POST', 'GET'])
 def s_signin():
   if request.method == 'POST':
     con = sql.connect("staffs.db")
@@ -163,13 +163,6 @@ def s_signin():
     cur.execute("SELECT sname FROM staffs WHERE empid=?", (session["staff"],))
     sname = cur.fetchone()[0]
     return render_template("/s_member.html", sname = sname)
-
-@app.route('/s_member')
-def s_member():
-  if "staff" in session:
-    return render_template("s_member.html", sname = session["staff"])
-  else:
-    return render_template("/")
 
 @app.route('/r_signout')
 def r_signout():
