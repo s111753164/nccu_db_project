@@ -89,12 +89,12 @@ def book_available():
     cur.execute("select * from books")
     books = cur.fetchall()
 
-
     con1 = sql.connect("reports.db")
     con1.row_factory = sql.Row
     cur1 = con1.cursor()
     cur1.execute("select book_no from reports")
-    reports = cur1.fetchall()
+    reports = [row["book_no"] for row in cur1.fetchall()]
+    print(reports)
     return render_template("book_available.html", books = books, reports = reports)
   else:
     return redirect("/")
@@ -138,7 +138,10 @@ def r_signin():
     people = cur.fetchall()
     if len(people) == 0:
         return redirect("/result?msg=帳號或密碼錯誤")
+    cur.execute("SELECT ssn FROM readers WHERE rname=? and password=?", (rname, rpassword,))
+    ssn = cur.fetchone()[0]
     session["reader"] = rname
+    session["ssn"] = ssn
     return redirect("/r_member")
 
 @app.route('/s_member',methods = ['POST', 'GET'])
@@ -165,10 +168,34 @@ def s_signin():
     sname = cur.fetchone()[0]
     return render_template("/s_member.html", sname = sname)
   
-# @app.route('/r_profile')
-# def s_profile():
-#   if "reader" in session:
-     
+@app.route('/r_profile')
+def r_profile():
+  if "reader" in session:
+    ssn = session["ssn"]
+    con = sql.connect("readers.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM readers WHERE ssn = ?", (ssn,))
+    reader = cur.fetchone()
+    con.close
+    return render_template("/r_profile.html", reader = reader)
+  else:
+    return redirect("/")
+
+# 管理員個人資料
+@app.route('/s_profile')
+def s_profile():
+  if "staff" in session:
+    empid = session["staff"]
+    con = sql.connect("staffs.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM staffs WHERE empid = ?", (empid,))
+    staff = cur.fetchone()
+    con.close
+    return render_template("/s_profile.html", staff = staff)
+  else:
+    return redirect("/")
 
 @app.route('/r_signout')
 def r_signout():
