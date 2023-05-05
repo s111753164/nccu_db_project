@@ -82,6 +82,7 @@ def modify():
 
 @app.route('/book_available')
 def book_available():
+  if "reader" in session:
     con = sql.connect("books.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -95,6 +96,8 @@ def book_available():
     cur1.execute("select book_no from reports")
     reports = cur1.fetchall()
     return render_template("book_available.html", books = books, reports = reports)
+  else:
+    return redirect("/")
 
 @app.route('/borrow')
 def borrow():
@@ -123,8 +126,6 @@ def test_report():
     
     reports = cur.fetchall()
     return render_template("test_report.html", reports = reports)
-    
-    
     
 @app.route('/r_signin',methods = ['POST'])
 def r_signin():
@@ -163,6 +164,11 @@ def s_signin():
     cur.execute("SELECT sname FROM staffs WHERE empid=?", (session["staff"],))
     sname = cur.fetchone()[0]
     return render_template("/s_member.html", sname = sname)
+  
+# @app.route('/r_profile')
+# def s_profile():
+#   if "reader" in session:
+     
 
 @app.route('/r_signout')
 def r_signout():
