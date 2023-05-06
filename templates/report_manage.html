@@ -8,11 +8,13 @@
 </head>
 <body>
    <h1>所有借閱紀錄</h1>
-   <form action="{{ url_for('new_report') }}" method="POST">
+   <form action="/new_report" method="POST">
      讀者身分證
      <input type="text" name="SSN"/>
      ISBN
      <input type="text" name="ISBN"/>
+     書名
+     <input type="text" name="title"/>
      借書日期
      <input type="text" name="issue"/>
      應歸還日期
@@ -28,6 +30,7 @@
            <td>編號</td>
            <td>使用者ID</td>
            <td>ISBN</td>
+           <td>書名</td>
            <td>借出日期</td>
            <td>應歸還日期</td>
            <td>刪除</td>
@@ -38,8 +41,9 @@
               <td>{{row["Reg_no"]}}</td>
               <td>{{row["User_id"]}}</td>
               <td>{{row["book_no"]}}</td>
+              <td>{{row["title"]}}</td>
               <td>{{row['issue']}}</td>
-              <td>{{row['return']}}</td>	
+              <td>{{row['return_date']}}</td>	
               <td>
                <a href="/d_report?book={{row['book_no']}}">刪除這筆紀錄</a>
             </td>

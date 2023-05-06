@@ -18,6 +18,8 @@ with db:
         'INSERT INTO  books(ISBN, title, author, category, version) VALUES (?, ?, ?, ?, ?)',
         books
     )
+print ("\n")
+print ("books table created successfully")
 
 db = sqlite3.connect('readers.db')
 with db:
@@ -27,6 +29,7 @@ with db:
     cursor.execute(
         'INSERT INTO readers(rname, ssn, address, mail, phone, password) VALUES ("dylan","b122456731","台北市文山區","xxx@gmail.com","0935641297","5897")'
     )
+print ("readers table created successfully")
 
 db = sqlite3.connect('staffs.db')
 with db:
@@ -35,14 +38,16 @@ with db:
     cursor.execute(
         'INSERT INTO staffs(sname, empid, password) VALUES ("Lisa","s111753164", "1234")'
     )
+print ("staffs table created successfully")
 
 db = sqlite3.connect('reports.db')
 with db:
     db.executescript(create_db_sql)
     cursor = db.cursor()
     cursor.execute(
-        'INSERT INTO reports(User_id, book_no, issue, return) VALUES ("b122456731","9786267252246","2023-05-01 10:00:00","2023-05-08 10:00:00")'
+        'INSERT INTO reports(User_id, book_no, title, issue, return_date) VALUES ("b122456731","9786267252246","測試書籍","2023-05-01 10:00:00","2023-05-08 10:00:00")'
     )
+print ("reports table created successfully")
 
 db = sqlite3.connect('recommends.db')
 with db:
@@ -51,3 +56,4 @@ with db:
     cursor.execute(
         'INSERT INTO recommends(ISBN, title, author, category, version) VALUES ("9786878752246","資料庫聖經","沈錳坤","教科書","初版")'
     )
+print ("recommends table created successfully")

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3 as sql
+import datetime
 
 app = Flask(__name__)
 app.secret_key = 'nccugogo'
@@ -61,15 +62,15 @@ def r_modify():
    else:
     return redirect("/")
 # 修改員工資料
-@app.route('/s_modify0')
-def s_modify0():
+@app.route('/s_modify')
+def s_modify():
     if "staff" in session:
       return render_template("s_modify.html", empid = session["staff"])
     else:
        return redirect("/")
 
-@app.route('/s_modify',methods = ['POST', 'GET'])
-def s_modify():
+@app.route('/s_modify0',methods = ['POST', 'GET'])
+def s_modify0():
    if "staff" in session:
     if request.method == 'POST':
         try:
@@ -107,6 +108,37 @@ def book_available():
     return render_template("book_available.html", books = books)
   else:
     return redirect("/")
+
+# 讀者還書
+@app.route('/r_borrowed')
+def r_borrowed():
+  if "reader" in session:
+    ssn = session["ssn"]
+    con = sql.connect("reports.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select * from reports where User_id=?", (ssn,))
+    borrowed = cur.fetchall()
+    con.close()
+    return render_template("r_borrow.html", borrowed = borrowed)
+  else:
+    return redirect("/")
+  
+@app.route('/return_book')
+def return_book():
+   if "reader" in session:
+     book = request.args.get('book')
+     con = sql.connect("reports.db")
+     de = "DELETE FROM reports WHERE book_no="+book
+     cur = con.cursor()
+     cur.execute(de)
+     con.commit()
+     con.close()
+     return render_template("r_result.html", msg = "成功歸還！祝您有美好的一天！")
+   else:
+      return redirect("/")
+  
+# 讀者還書
   
 @app.route('/new_recommend',methods = ['POST', 'GET'])
 def new_recommend():
@@ -134,37 +166,47 @@ def new_recommend():
 def recommend():
     return render_template("recommend.html")
 
-
 @app.route('/borrow')
 def borrow():
     if "reader" in session:
-      ISBN = request.args.get("book")
-      con = sql.connect("readers.db")
-      con.row_factory = sql.Row
-      cur = con.cursor()
-      reader = session["reader"]
-      cur.execute("SELECT ssn FROM readers WHERE rname = ?", (reader,))
-      people = cur.fetchone()[0]
+        ISBN = request.args.get("book")
+        try:
+            with sql.connect("books.db") as con:
+                cur = con.cursor()
+                cur.execute("SELECT title FROM books WHERE ISBN=?", (ISBN,))
+                title = cur.fetchone()[0]
 
-      con = sql.connect("reports.db")
-      con.row_factory = sql.Row
-      cur = con.cursor()
-      cur.execute("SELECT book_no FROM reports WHERE book_no = ?", (ISBN,))
-      tmp = cur.fetchone()
-      if tmp is None:
-          try:
-              cur.execute("INSERT INTO reports(User_id, book_no) VALUES (?, ?)", (people, ISBN))
-              msg = "借閱成功！"
-          except Exception as e:
-              con.rollback()
-              msg = "發生錯誤！請稍後再試！"
-              print(e)
-      else: 
-          msg = "這本書已經被借走囉！"
-      con.commit()
-      return render_template("r_result.html", msg = msg)
+            with sql.connect("readers.db") as con1:
+                con1.row_factory = sql.Row
+                cur1 = con1.cursor()
+                reader = session["reader"]
+                cur1.execute("SELECT ssn FROM readers WHERE rname = ?", (reader,))
+                people = cur1.fetchone()[0]
+
+            with sql.connect("reports.db") as con2:
+                con2.row_factory = sql.Row
+                cur2 = con2.cursor()
+                cur2.execute("SELECT book_no FROM reports WHERE book_no = ?", (ISBN,))
+                tmp = cur2.fetchone()
+                if tmp is None:
+                    return_date = datetime.date.today() + datetime.timedelta(days=30)
+                    cur2.execute("INSERT INTO reports(User_id, book_no, title) VALUES (?, ?, ?)", (people, ISBN, title))
+                    msg1 = "借閱成功！請在"+return_date.strftime('%Y-%m-%d')+"之前歸還，謝謝！"
+                    with sql.connect("books.db") as con:
+                        cur = con.cursor()
+                        cur.execute("SELECT title FROM books WHERE ISBN = ?", (ISBN,))
+                        msg2 = cur.fetchone()[0]
+                else:
+                    msg1 = "這本書已經被借走囉！"
+                    msg2 = ""
+        except Exception as e:
+            con.rollback()
+            msg1 = "發生錯誤！請稍後再試！"
+            msg2 = "未知"
+            print(e)
+        return render_template("borrow_result.html", msg1=msg1, msg2=msg2)
     else:
-     return redirect("/")
+        return redirect("/")
 
 @app.route('/report_manage')
 def reports():
@@ -220,9 +262,10 @@ def new_report():
     ISBN = request.form["ISBN"]
     issue = request.form["issue"]
     return_date = request.form["return_date"]
+    title = request.form["title"]
     with sql.connect("reports.db") as con:
      cur = con.cursor()
-     cur.execute("INSERT INTO reports(User_id, book_no, issue, return) VALUES (?,?,?,?)",(SSN, ISBN, issue, return_date) )
+     cur.execute("INSERT INTO reports(User_id, book_no, title, issue, return_date) VALUES (?,?,?,?,?)",(SSN, ISBN, title, issue, return_date) )
      con.commit()
      msg = "借閱紀錄新增成功！"
    except:
@@ -282,7 +325,12 @@ def del_reader():
 @app.route('/del_staff')
 def del_staff():
    if "staff" in session:
-    return render_template("/del_staff.html")
+    empid = session['staff']
+    con = sql.connect("staffs.db")
+    cur = con.cursor()
+    cur.execute("SELECT sname FROM staffs WHERE empid=?", (empid,))
+    sname = cur.fetchone()[0]
+    return render_template("/del_staff.html", sname = sname)
    else:
     return redirect("/")
    
@@ -518,6 +566,12 @@ def s_result():
 def result():
     message = request.args.get("msg", "發生錯誤，請聯繫電算中心")
     return render_template("result.html", msg=message)
+
+@app.route('/borrow_result')
+def borrow_result():
+    message1 = request.args.get("msg1", "發生錯誤，請聯繫電算中心")
+    message2 = request.args.get("msg2", "發生錯誤，請聯繫電算中心")
+    return render_template("result.html", msg1=message1, msg2=message2)
 
 if __name__ == '__main__':
     app.run(debug=True)
