@@ -21,7 +21,8 @@ python app.py
 visit [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ### 其他注意事項
-由於專案一直在更新，如果組員們發現程式無法正常運作，請把舊的檔案刪除並重新下載，或是把nccu_db_project這個目錄底下的五個副檔名為.db的檔案刪除(一個db檔就相當於資料庫的一個table)，刪除後再重新運行 `python setup_db.py`及`python app.py`
+由於專案一直在更新，如果組員們發現程式無法正常運作，請把舊的檔案刪除並重新下載，或是把nccu_db_project這個目錄底下的五個副檔名為.db的檔案刪除(一個db檔就相當於資料庫的一個table)，刪除後再重新運行 
+`python setup_db.py`及`python app.py`
 # Contributor
 資碩工一 111753164 黃奕晟<br>
 資碩工一 111753162 謝非諭<br>
