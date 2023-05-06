@@ -17,6 +17,7 @@
             <td>地址</td>
             <td>信箱</td>
             <td>電話</td>
+            <td>密碼</td>
          </thead>
          
          {% for row in readers %}  
@@ -25,7 +26,8 @@
                <td>{{row["ssn"]}}</td>
                <td> {{row["address"]}}</td>
                <td>{{row['mail']}}</td>
-               <td>{{row['phone']}}</td>	
+               <td>{{row['phone']}}</td>
+               <td>{{row['password']}}</td>	
             </tr>
          {% endfor %}
       </table>

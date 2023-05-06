@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>警告</title>
+</head>
+<body>
+    <h1>{{ rname }}您好，您確定要刪除自己的帳戶？</h1>
+    <br>
+    <form action="{{ url_for('del_account_self') }}">
+        <button>刪除帳戶</button>
+    </form>
+</body>
+</html>

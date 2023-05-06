@@ -43,3 +43,11 @@ with db:
     cursor.execute(
         'INSERT INTO reports(User_id, book_no, issue, return) VALUES ("b122456731","9786267252246","2023-05-01 10:00:00","2023-05-08 10:00:00")'
     )
+
+db = sqlite3.connect('recommends.db')
+with db:
+    db.executescript(create_db_sql)
+    cursor = db.cursor()
+    cursor.execute(
+        'INSERT INTO recommends(ISBN, title, author, category, version) VALUES ("9786878752246","資料庫聖經","沈錳坤","教科書","初版")'
+    )

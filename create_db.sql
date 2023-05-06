@@ -6,6 +6,14 @@ CREATE TABLE books (
     `version` TEXT
 );
 
+CREATE TABLE recommends (
+    `ISBN` INTEGER PRIMARY KEY,
+    `title` TEXT,
+    `author` TEXT,
+    `category` TEXT,
+    `version` TEXT
+);
+
 CREATE TABLE readers (
     `rname` TEXT,
     `ssn` TEXT PRIMARY KEY,
@@ -33,6 +41,6 @@ CREATE TABLE reports (
     `book_no` TEXT,
     `issue` DATETIME DEFAULT (datetime('now', 'localtime')),
     `return` DATETIME DEFAULT (datetime('now', 'localtime')),
-    FOREIGN KEY(`User_id`) REFERENCES `readers`(`ssn`)
-    FOREIGN KEY(`book_no`) REFERENCES `books`(`ISBN`)
+    FOREIGN KEY(`User_id`) REFERENCES `readers`(`ssn`) ON DELETE CASCADE
+    FOREIGN KEY(`book_no`) REFERENCES `books`(`ISBN`) ON DELETE CASCADE
 );
