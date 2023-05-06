@@ -18,8 +18,8 @@ def books():
     books = cur.fetchall()
     return render_template("book_search.html", book_search = books)
 
-@app.route('/r_modify0')
-def r_modify0():
+@app.route('/r_modify')
+def r_modify():
     if "reader" in session:
       con = sql.connect("readers.db")
       con.row_factory = sql.Row
@@ -31,8 +31,8 @@ def r_modify0():
     else:
        return redirect("/")
 
-@app.route('/r_modify',methods = ['POST', 'GET'])
-def r_modify():
+@app.route('/r_modify0',methods = ['POST', 'GET'])
+def r_modify0():
    if "reader" in session:
     if request.method == 'POST':
         try:
@@ -240,9 +240,10 @@ def new_book():
          author = request.form["author"]
          category = request.form["category"]
          version = request.form["version"]
+         publisher = request.form["publisher"]
          with sql.connect("books.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO books (ISBN, title, author, category, version) VALUES (?,?,?,?,?)",(ISBN, title, author, category, version) )
+            cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?)",(ISBN, title, author, category, version, publisher) )
             con.commit()
             msg = "書籍上架成功！"
       except:

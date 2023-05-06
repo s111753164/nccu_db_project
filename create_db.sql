@@ -3,7 +3,8 @@ CREATE TABLE books (
     `title` TEXT,
     `author` TEXT,
     `category` TEXT,
-    `version` TEXT
+    `version` TEXT,
+    `publisher` TEXT
 );
 
 CREATE TABLE recommends (
