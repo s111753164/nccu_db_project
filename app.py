@@ -136,14 +136,36 @@ def reports():
     reports = cur.fetchall()
     return render_template("reports.html", reports = reports)
 
+@app.route('/book_manage')
+def book_manage():
+    con = sql.connect("books.db")
+    con.row_factory = sql.Row
+    
+    cur = con.cursor()
+    cur.execute("select * from books")
+    
+    books = cur.fetchall()
+    return render_template("book_manage.html", books = books)
+
 @app.route('/d_report')
 def d_report():
     con = sql.connect("reports.db")
-    con.row_factory = sql.Row
+    ID = request.args.get("book")
+    de = "DELETE FROM reports WHERE book_no="+ID
     cur = con.cursor()
-    cur.execute("DELETE FROM reports WHERE book_no=?",(request.args.get("book")))
+    cur.execute(de)
     con.commit()
     return render_template("result.html", msg="借閱紀錄刪除成功！")
+
+@app.route('/d_book')
+def d_book():
+    con = sql.connect("books.db")
+    ID = request.args.get("book")
+    de = "DELETE FROM books WHERE ISBN="+ID
+    cur = con.cursor()
+    cur.execute(de)
+    con.commit()
+    return render_template("result.html", msg="書籍下架成功！")
     
 @app.route('/r_signin',methods = ['POST'])
 def r_signin():
