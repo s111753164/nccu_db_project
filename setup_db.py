@@ -57,3 +57,21 @@ with db:
         'INSERT INTO recommends(ISBN, title, author, category, version) VALUES ("9786878752246","資料庫聖經","沈錳坤","教科書","初版")'
     )
 print ("recommends table created successfully")
+
+db = sqlite3.connect('publishers.db')
+with db:
+    db.executescript(create_db_sql)
+    cursor = db.cursor()
+    con = sqlite3.connect("books.db")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("SELECT DISTINCT publisher FROM books")
+    publishers = cur.fetchall()
+    con.close()
+
+    publisher_names = [publisher['publisher'] for publisher in publishers]
+    cursor.executemany(
+    'INSERT INTO  publishers(pname) VALUES (?)',
+    [(name,) for name in publisher_names]
+)
+print ("publishers table created successfully")

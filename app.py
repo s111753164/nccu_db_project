@@ -477,6 +477,17 @@ def booklist():
     books = cur.fetchall()
     return render_template("booklist.html", books = books)
 
+@app.route('/r_booklist')
+def r_booklist():
+    con = sql.connect("books.db")
+    con.row_factory = sql.Row
+    
+    cur = con.cursor()
+    cur.execute("select * from books")
+    
+    books = cur.fetchall()
+    return render_template("r_booklist.html", books = books)
+
 @app.route('/recommend_list')
 def recommend_list():
     con = sql.connect("recommends.db")
@@ -552,6 +563,28 @@ def s_signup():
       finally:
          con.close()
          return render_template("s_result.html",msg = msg)
+      
+@app.route('/publishers')
+def publishers():
+    con = sql.connect("publishers.db")
+    con.row_factory = sql.Row
+    
+    cur = con.cursor()
+    cur.execute("select * from publishers")
+    
+    publishers = cur.fetchall()
+    return render_template("publishers.html", publishers = publishers)
+
+@app.route('/r_publishers')
+def r_publishers():
+    con = sql.connect("publishers.db")
+    con.row_factory = sql.Row
+    
+    cur = con.cursor()
+    cur.execute("select * from publishers")
+    
+    publishers = cur.fetchall()
+    return render_template("r_publishers.html", publishers = publishers)
          
 @app.route("/r_result")
 def r_result():

@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 書籍薦購 </title>
-</head>
+    <title>書籍薦購</title>
+    <meta name="google" content="notranslate">
+ </head>
 
 <body>
-    <h1>書籍薦購，你想向圖書館推薦什麼書?</h1>
+    <h1>書籍薦購，你想向圖書館推薦什麼書?</h1><br>
+    <div><a href="/r_member">回會員控制頁面</a></div>
     <hr>
     <form action="{{ url_for('new_recommend') }}" method="POST">
         ISBN<br>

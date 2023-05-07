@@ -1,5 +1,5 @@
 CREATE TABLE books (
-    `ISBN` INTEGER PRIMARY KEY,
+    `ISBN` TEXT PRIMARY KEY,
     `title` TEXT,
     `author` TEXT,
     `category` TEXT,
@@ -30,11 +30,11 @@ CREATE TABLE staffs (
     `password` TEXT
 );
 
--- CREATE TABLE publishers (
---     `publisher_id` INTEGER PRIMARY KEY ASC AUTOINCREMENT,
---     `pname` TEXT,
---     `YearOfPublication` TEXT
--- );
+CREATE TABLE publishers (
+    `publisher_id` INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    `pname` TEXT,
+    FOREIGN KEY(`pname`) REFERENCES `books`(`publisher`) ON DELETE CASCADE
+);
 
 CREATE TABLE reports (
     `Reg_no` INTEGER PRIMARY KEY ASC AUTOINCREMENT,

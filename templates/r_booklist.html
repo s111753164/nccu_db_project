@@ -1,30 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
    <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>書籍管理</title>
+      <title>所有書籍</title>
       <meta name="google" content="notranslate">
    </head>
-<body>
-    <h1>管理書本頁面</h1>
-    <form action="{{ url_for('new_book') }}" method="POST">
-      輸入欲上架的書籍ID
-      <input type="text" name="ISBN"/>
-      書名
-      <input type="text" name="title"/>
-      作者
-      <input type="text" name="author"/>
-      分類
-      <input type="text" name="category"/>
-      版次
-      <input type="text" name="version"/>
-      出版社
-      <input type="text" name="publisher"/>
-      <button>新增</button>
+   <body>
+
+    <h1>所有書本</h1>
+  <form action="/book_search">
+      請輸入書名
+      <input type="text" name="book_search"/>
+      <button>查詢</button>
   </form>
   <br>
-    <div><a href="/s_member">回管理員控制頁面</a></div>
+    <div><a href="/r_member">回會員控制頁面</a></div>
+  <br>
+    <div><a href="/r_publishers">查看所有出版商</a></div>
     <hr>
       <table border = 1>
          <thead>
@@ -34,7 +27,6 @@
             <td>分類</td>
             <td>版次</td>
             <td>出版社</td>
-            <td>下架</td>
          </thead>
          
          {% for row in books %}  
@@ -45,11 +37,9 @@
                <td>{{row['category']}}</td>
                <td>{{row['version']}}</td>
                <td>{{row['publisher']}}</td>	
-               <td>
-                <a href="/d_book?book={{row['ISBN']}}">下架書籍</a>
-             </td>
             </tr>
          {% endfor %}
       </table>
-</body>
+
+   </body>
 </html>
