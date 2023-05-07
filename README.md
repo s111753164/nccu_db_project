@@ -1,4 +1,4 @@
-![Image text](https://github.com/s111753164/nccu_db_project/blob/main/static/banner.png)
+![Image text](https://github.com/s111753164/nccu_db_project/blob/main/static/banner.png)(https://github.com/s111753164/nccu_db_project)
 # About The Project
 This is the end-of-term project for Spring 2023 Database Systems --Library Management System
 ### built with
