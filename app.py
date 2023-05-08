@@ -588,7 +588,7 @@ def r_publishers():
          
 @app.route("/r_result")
 def r_result():
-    message = request.args.get("msg", "發生錯誤，請聯繫電算中心")
+    message = request.args.get("msg", "發生錯誤，請聯繫圖書館")
     return render_template("r_result.html", msg=message)
 
 @app.route("/s_result")
@@ -598,13 +598,13 @@ def s_result():
 
 @app.route("/result")
 def result():
-    message = request.args.get("msg", "發生錯誤，請聯繫電算中心")
+    message = request.args.get("msg", "發生錯誤，請聯繫圖書館")
     return render_template("result.html", msg=message)
 
 @app.route('/borrow_result')
 def borrow_result():
-    message1 = request.args.get("msg1", "發生錯誤，請聯繫電算中心")
-    message2 = request.args.get("msg2", "發生錯誤，請聯繫電算中心")
+    message1 = request.args.get("msg1", "發生錯誤，請聯繫圖書館")
+    message2 = request.args.get("msg2", "發生錯誤，請聯繫圖書館")
     return render_template("result.html", msg1=message1, msg2=message2)
 
 if __name__ == '__main__':
