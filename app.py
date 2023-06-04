@@ -3,7 +3,7 @@ import sqlite3 as sql
 import datetime
 
 app = Flask(__name__)
-app.secret_key = 'nccugogo'
+
 
 @app.route('/')
 def home():
