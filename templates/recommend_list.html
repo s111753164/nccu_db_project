@@ -7,10 +7,38 @@
       <meta name="google" content="notranslate">
    </head>
    <body>
-
-    <h1>所有薦購名單</h1>
+      <style type = "text/css">
+         body{
+            position: absolute;
+            background-color: #FFF2F2;
+         }
+         div{
+            width:450px ;
+            text-align: center;
+            position:absolute;
+            white-space:nowrap;
+            font-size: 1.5em;
+            left: 580px;
+            top: 200px;
+         }
+         .a1{
+            background-color: transparent;
+            color: firebrick;
+            border-width: 0px;
+            height:350px ;
+            width: 800px;
+            font-size: 1.5em;
+            position:absolute;
+               text-align: center;
+            left: 400px;
+            top: 50px;
+         }
+        </style>
+       <div class = "a1">
+           <h1>所有薦購名單</h1>
+       </div>
     <br>
-    <div><a href="/s_member">回管理員控制頁面</a></div>
+    <div><a href="/s_member">回管理員控制頁面</a>
     <br>
     <hr>
 
@@ -35,5 +63,6 @@
             </tr>
          {% endfor %}
       </table>
+   </div>
    </body>
 </html>

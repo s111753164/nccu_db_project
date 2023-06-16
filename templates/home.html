@@ -7,28 +7,63 @@
 		<meta name="google" content="notranslate">
 	 </head>
 <body>
-<h1>圖書資訊暨借閱管理系統</h1>
+	<style type = "text/css">
+		p        { font-size: 1.6em;
+				   font-family: "Perpetua" ;}
+		p::first-letter {font-size: 1.5em; }
+		input    { font-weight: 600;}
+		.special {color: black; }
+		body{
+			background-image: url("/4.jpg");
+			position: absolute;
+			background-color: #FFF2F2;
+		}
+		div{
+			height:420px ;
+			width:450px ;
+			text-align: center;
+			position:absolute;
+			left: 550px;
+			top: 200px;
+		}
+		.a1{
+			background-color: transparent;
+			color: firebrick;
+			border-width: 0px;
+			height:350px ;
+			width: 800px;
+			font-size: 1.9em;
+			position:absolute;
+			left: 410px;
+			top: 50px;
+		}
+	  </style>
+
+<div class = "a1">
+    <h1>圖書資訊暨借閱管理系統</h1>
+</div>
+<div>
 <a href="/">首頁</a>
 <a href="/booklist">查看所有書籍</a>
 <br>
-<br>
-<br>
+<hr>
 <h1>管理員登入</h1>
     <form action="/s_signin" method="POST">
-        員工編號 <input type="text" name="empid" /><br/>
-        輸入密碼 <input type="password" name="password" /><br/>
+        <input type="text" placeholder="請輸入員工編號" name="empid" /><br/>
+        <input type="password" placeholder="請輸入密碼" name="password" /><br/>
         <button>登入</button>
     </form>
     <br>
-    <div><a href="/new_staff">註冊管理員帳號</a></div>
+    <a href="/new_staff">註冊管理員帳號</a>
 	<br>
 	<h1>讀者會員登入</h1>
 	<form action="/r_signin" method="POST">
-		姓名 <input type="text" name="rname" /><br />
-		密碼 <input type="password" name="password" /><br />
+		<input type="text" placeholder="請輸入姓名" name="rname" /><br />
+		<input type="password" placeholder="請輸入密碼" name="password" /><br />
 		<button>登入</button>
 	</form>
 	<br>
-	<div><a href="/new_reader">註冊讀者帳號</a></div>
+	<a href="/new_reader">註冊讀者帳號</a>
+</div>
  </body>
  </html>

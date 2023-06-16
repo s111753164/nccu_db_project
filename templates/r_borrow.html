@@ -10,9 +10,38 @@
 
 <body>
 
-   <h1>我的借閱紀錄</h1>
-   <br>
-    <div><a href="/r_member">回會員控制頁面</a></div>
+   <style type = "text/css">
+		body{
+			position: absolute;
+			background-color: #FFF2F2;
+		}
+		div{
+			width:900px ;
+			text-align: left;
+			position:absolute;
+         font-size: 1.5em;
+			left: 550px;
+			top: 200px;
+		}
+		.a1{
+			background-color: transparent;
+			color: firebrick;
+			border-width: 0px;
+			height:350px ;
+			width: 800px;
+			font-size: 1.6em;
+			position:absolute;
+			left: 375px;
+			top: 50px;
+		}
+   </style>
+
+   <div class = "a1">
+      <h1>我的借閱紀錄</h1>
+      <a href="/r_member">回會員控制頁面</a>
+   </div>
+   
+    <div>
     <br>
    <hr>
    <table border=1>
@@ -36,6 +65,7 @@
       </tr>
       {% endfor %}
    </table>
+   </div>
 
 </body>
 </html>

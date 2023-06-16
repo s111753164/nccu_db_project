@@ -7,43 +7,111 @@
         <meta name="google" content="notranslate">
      </head>
 <body>
-    <h1>{{ sname }}你好，歡迎你回來</h1>
-    <br>
-    <h1>查詢</h1>
-    <a href="/reader_list">查看所有讀者</a>
-    <br>
-    <a href="/s_profile">查看個人資料</a>
-    <br>
-    <a href="/book_manage">查看所有書籍</a>
-    <br>
-    <a href="/report_manage">查看所有借閱紀錄</a>
-    <br>
-    <a href="/recommend_list">查看讀者薦購名單</a>
-    <br>
-    <hr>
-    <h1>新增</h1>
-    <br>
-    <a href="/book_manage">新增書籍</a>
-    <br>
-    <a href="/report_manage">新增一筆借閱紀錄</a>
-    <br>
-    <hr>
-    <h1>修改</h1>
-    <br>
-    <a href="/s_modify">修改員工個人資料</a>
-    <br>
-    <hr>
-    <h1>刪除</h1>
-    <br>
-    <a href="/del_reader">刪除讀者帳戶</a>
-    <br>
-    <a href="/del_staff">刪除管理員帳戶</a>
-    <br>
-    <a href="/report_manage">刪除單筆借閱紀錄</a>
-    <br>
-    <a href="/book_manage">下架書籍</a>
-    <br>
-    <input type="button" value="登出" onclick="location.href='/s_signout'">
-    <br>
+    <style type = "text/css">
+		body{
+            background-color: #FFF2F2;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;}
+
+        h1{
+            padding:45px 0;
+            font-size:4em;
+            font-weight:bold;
+            text-align:center;
+        }
+
+        main{
+            width:1000px;
+            margin:0 auto;
+            display:block;
+        }
+
+        ul li{
+            float:left;
+            margin-right:1px;
+            list-style-type:none;
+        }
+
+        ul li a{
+            font-size:2em;
+            font-weight:bold;
+            color:#FFF;
+            text-decoration:none;
+            display:block;
+            width:100px;
+            padding:15px 20px;
+            background:#C15757;
+        }
+
+        ul li a:hover{
+            background:#D26161;
+            color:#FFF;
+        }
+
+        ul li a.current{
+            background:#D26161;
+            color:#FFF;
+        }
+
+        #contents{
+            clear:both;
+            margin-bottom:150px;
+        }
+
+        #contents div{
+            padding:30px 20px;
+            background:#F5F4F2;
+        }
+
+        #contents p{
+            margin-top:20px;
+            line-height:2em;
+            color:#C15757;
+        }
+
+        #contents strong{
+            font-size:3em;
+            font-weight:bold;
+            color:#D6AF62;
+        }
+	  </style>
+    <div class = "a1">
+        <h1>{{ sname }}你好，歡迎你回來</h1>
+    </div>
+    <main>
+        <ul>
+            <li><a href="#tab1" class="current">查詢</a></li>
+            <li><a href="#tab2">新增</a></li>
+            <li><a href="#tab3">修改</a></li>
+            <li><a href="#tab4">刪除</a></li>
+        </ul>
+        <div id="contents">
+            <div id="tab1">
+                <p><strong>查詢</strong></p>
+                <a href="/reader_list">查看所有讀者</a><br>
+                <a href="/s_profile">查看個人資料</a><br>
+                <a href="/book_manage">查看所有書籍</a><br>
+                <a href="/report_manage">查看所有借閱紀錄</a><br>
+                <a href="/recommend_list">查看讀者薦購名單</a><br><hr>
+            </div>
+            <div id="tab2">
+                <p><strong>新增</strong></p><br>
+                <a href="/book_manage">新增書籍</a><br>
+                <a href="/report_manage">新增一筆借閱紀錄</a><br><hr>
+            </div>
+            <div id="tab3">
+                <p><strong>修改</strong></p><br>
+                <a href="/s_modify">修改員工個人資料</a><br><hr>
+            </div>
+            <div id="tab4">
+                <p><strong>刪除</strong></p><br><br>
+                <a href="/del_reader">刪除讀者帳戶</a><br>
+                <a href="/del_staff">刪除管理員帳戶</a><br>
+                <a href="/report_manage">刪除單筆借閱紀錄</a><br>
+                <a href="/book_manage">下架書籍</a><br>
+                <input type="button" value="登出" onclick="location.href='/s_signout'"><br>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

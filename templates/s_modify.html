@@ -7,17 +7,46 @@
         <meta name="google" content="notranslate">
      </head>
 <body>
-    <h1>修改員工個人資料</h1>
+    <style type = "text/css">
+        body{
+           position: absolute;
+           background-color: #FFF2F2;
+        }
+        div{
+           width:450px ;
+           text-align: center;
+           position:absolute;
+           white-space:nowrap;
+           font-size: 1.5em;
+           left: 580px;
+           top: 200px;
+        }
+        .a1{
+           background-color: transparent;
+           color: firebrick;
+           border-width: 0px;
+           height:350px ;
+           width: 800px;
+           font-size: 1.5em;
+           position:absolute;
+              text-align: center;
+           left: 400px;
+           top: 50px;
+        }
+       </style>
+      <div class = "a1">
+        <h1>修改員工個人資料</h1>
+      </div>
+      <div>
     <form action="{{ url_for('s_modify0') }}" method="POST">
-        員工編號：{{ empid }} <br>
+        員工編號：{{ empid }} <br><br>
         修改名字：<br>
         <input type="text" name="sname" /></br>
         修改密碼<br>
-        <input type="password" name="password" /><br><br>
-        <br>
+        <input type="password" name="password" /><br>
         <button>修改</button>
-        <br>
-        <div><a href="/s_member">回管理員控制頁面</a></div>
+        <br><hr>
+        <a href="/s_member">回管理員控制頁面</a></div>
     </form>
 </body>
 </html>

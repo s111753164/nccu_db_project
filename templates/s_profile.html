@@ -7,14 +7,42 @@
         <meta name="google" content="notranslate">
      </head>
 <body>
-    <h1>管理員個人資料</h1>
-    <br><hr>         
+    <style type = "text/css">
+		body{
+			position: absolute;
+			background-color: #FFF2F2;
+		}
+		div{
+			width:450px ;
+			text-align: center;
+			position:absolute;
+            font-size: 1.5em;
+			left: 580px;
+			top: 180px;
+		}
+		.a1{
+			background-color: transparent;
+			color: firebrick;
+			border-width: 0px;
+			height:350px ;
+			width: 800px;
+			font-size: 1.5em;
+			position:absolute;
+            text-align: center;
+			left: 405px;
+			top: 50px;
+		}
+	  </style>
+    <div class = "a1">
+        <h1>管理員個人資料</h1>
+    </div>
+    <div>    
                管理員名字：{{staff["sname"]}}
                <br>
                員工編號：{{staff["empid"]}}	
                <br>
-      <br>
-    <div><a href="/s_member">回管理員控制頁面</a></div>
+      <br><hr>
+    <a href="/s_member">回管理員控制頁面</a></div>
      
 
    </body>

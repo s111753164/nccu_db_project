@@ -9,8 +9,35 @@
  </head>
 
 <body>
-    <h1>書籍薦購，你想向圖書館推薦什麼書?</h1><br>
-    <div><a href="/r_member">回會員控制頁面</a></div>
+    <style type = "text/css">
+		body{
+			position: absolute;
+			background-color: #FFF2F2;
+		}
+		div{
+			width:450px ;
+			text-align: center;
+			position:absolute;
+            font-size: 1.3em;
+			left: 550px;
+			top: 200px;
+		}
+		.a1{
+			background-color: transparent;
+			color: firebrick;
+			border-width: 0px;
+			height:350px ;
+			width: 800px;
+			font-size: 1.5em;
+			position:absolute;
+			left: 400px;
+			top: 50px;
+		}
+	  </style>
+    <div class = "a1">
+        <h1>書籍薦購，你想向圖書館推薦什麼書?</h1>
+    </div>
+    <div><a href="/r_member">回會員控制頁面</a>
     <hr>
     <form action="{{ url_for('new_recommend') }}" method="POST">
         ISBN<br>
@@ -25,6 +52,7 @@
         <input type="text" name="version" /><br><br>
         <button>推薦</button>
     </form>
+    </div>
 </body>
 
 </html>

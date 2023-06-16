@@ -9,9 +9,41 @@
  </head>
 
 <body>
-    <h1>註冊讀者帳戶</h1>
-    <br>
-    <div><a href="/">回到首頁</a></div>
+    <style type = "text/css">
+		p        { font-size: 1.6em;
+				   font-family: "Perpetua" ;}
+		p::first-letter {font-size: 1.5em; }
+		input    { font-weight: 600;}
+		.special {color: black; }
+		body{
+			position: absolute;
+			background-color: #FFF2F2;
+		}
+		div{
+			height:420px ;
+			width:450px ;
+			text-align: center;
+			position:absolute;
+			left: 550px;
+			top: 200px;
+		}
+		.a1{
+			background-color: transparent;
+			color: firebrick;
+			border-width: 0px;
+			height:350px ;
+			width: 800px;
+			font-size: 1.9em;
+			position:absolute;
+			left: 380px;
+			top: 50px;
+		}
+	  </style>
+
+    <div class = "a1">
+        <h1>註冊讀者帳戶</h1>
+    </div>
+    <div><a href="/">回到首頁</a>
     <br>
     <hr>
     <form action="{{ url_for('r_signup') }}" method="POST">
@@ -28,7 +60,7 @@
         設定密碼<br>
         <input type="password" name="password" /><br><br>
         <button>註冊</button>
-    </form>
+    </form></div>
 </body>
 
 </html>
