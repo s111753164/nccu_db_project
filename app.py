@@ -16,6 +16,7 @@ def books():
     cur = con.cursor()
     cur.execute("select * from books where title LIKE '%{}%'".format(request.args.get("book_search", "")))
     books = cur.fetchall()
+    con.close()
     return render_template("book_search.html", book_search = books)
 
 @app.route('/r_modify')
@@ -213,6 +214,7 @@ def reports():
     cur.execute("select * from reports")
     
     reports = cur.fetchall()
+    con.close()
     return render_template("report_manage.html", reports = reports)
 
 @app.route('/book_manage')
@@ -224,6 +226,7 @@ def book_manage():
     cur.execute("select * from books")
     
     books = cur.fetchall()
+    con.close()
     return render_template("book_manage.html", books = books)
 
 # 新增書籍
@@ -239,7 +242,7 @@ def new_book():
     publisher = request.form["publisher"]
     with sql.connect("books.db") as con:
      cur = con.cursor()
-     cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?)",(ISBN, title, author, category, version, publisher) )
+     cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?,?)",(ISBN, title, author, category, version, publisher) )
      con.commit()
      msg = "書籍上架成功！"
    except:
@@ -281,6 +284,7 @@ def d_report():
     cur = con.cursor()
     cur.execute(de)
     con.commit()
+    con.close()
     return render_template("s_result.html", msg="借閱紀錄刪除成功！")
 
 @app.route('/d_book')
@@ -291,6 +295,7 @@ def d_book():
     cur = con.cursor()
     cur.execute(de)
     con.commit()
+    con.close()
     return render_template("s_result.html", msg="書籍下架成功！")
 
 @app.route('/del_reader_operation', methods=['POST'])
@@ -327,8 +332,10 @@ def del_staff():
     cur = con.cursor()
     cur.execute("SELECT sname FROM staffs WHERE empid=?", (empid,))
     sname = cur.fetchone()[0]
+    con.close()
     return render_template("/del_staff.html", sname = sname)
    else:
+    con.close()
     return redirect("/")
    
 @app.route('/del_staff_self')
@@ -385,6 +392,7 @@ def r_signin():
   ssn = cur.fetchone()[0]
   session["reader"] = rname
   session["ssn"] = ssn
+  con.close()
   return redirect("/r_member")
 
 @app.route('/s_signin', methods=['POST'])
@@ -471,6 +479,7 @@ def booklist():
     cur.execute("select * from books")
     
     books = cur.fetchall()
+    con.close()
     return render_template("booklist.html", books = books)
 
 @app.route('/r_booklist')
@@ -482,6 +491,7 @@ def r_booklist():
     cur.execute("select * from books")
     
     books = cur.fetchall()
+    con.close()
     return render_template("r_booklist.html", books = books)
 
 @app.route('/recommend_list')
@@ -493,6 +503,7 @@ def recommend_list():
     cur.execute("select * from recommends")
     
     recommends = cur.fetchall()
+    con.close()
     return render_template("recommend_list.html", recommends = recommends)
 
 @app.route('/reader_list')
@@ -505,8 +516,10 @@ def reader_list():
     cur.execute("select * from readers")
     
     readers = cur.fetchall()
+    con.close()
     return render_template("reader_list.html", readers = readers)
   else:
+    con.close()
     return redirect("/")
 
 @app.route('/new_reader')
@@ -569,6 +582,7 @@ def publishers():
     cur.execute("select * from publishers")
     
     publishers = cur.fetchall()
+    con.close()
     return render_template("publishers.html", publishers = publishers)
 
 @app.route('/r_publishers')
@@ -580,6 +594,7 @@ def r_publishers():
     cur.execute("select * from publishers")
     
     publishers = cur.fetchall()
+    con.close()
     return render_template("r_publishers.html", publishers = publishers)
          
 @app.route("/r_result")
