@@ -21,12 +21,8 @@ def books():
 @app.route('/r_modify')
 def r_modify():
     if "reader" in session:
-      con = sql.connect("readers.db")
-      con.row_factory = sql.Row
-      cur = con.cursor()
       reader = session["reader"]
-      cur.execute("SELECT ssn FROM readers WHERE rname = ?", (reader,))
-      people = cur.fetchone()[0]
+      people = session["ssn"]
       return render_template("r_modify.html", rname = reader, ssn = people)
     else:
        return redirect("/")
@@ -233,25 +229,25 @@ def book_manage():
 # 新增書籍
 @app.route('/new_book',methods = ['POST', 'GET'])
 def new_book():
-   if request.method == 'POST':
-      try:
-         ISBN = request.form["ISBN"]
-         title = request.form["title"]
-         author = request.form["author"]
-         category = request.form["category"]
-         version = request.form["version"]
-         publisher = request.form["publisher"]
-         with sql.connect("books.db") as con:
-            cur = con.cursor()
-            cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?)",(ISBN, title, author, category, version, publisher) )
-            con.commit()
-            msg = "書籍上架成功！"
-      except:
-         con.rollback()
-         msg = "書籍上架失敗，請聯絡電算中心！"
-      finally:
-         con.close()
-         return render_template("s_result.html",msg = msg)
+  if request.method == 'POST':
+   try:
+    ISBN = request.form["ISBN"]
+    title = request.form["title"]
+    author = request.form["author"]
+    category = request.form["category"]
+    version = request.form["version"]
+    publisher = request.form["publisher"]
+    with sql.connect("books.db") as con:
+     cur = con.cursor()
+     cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?)",(ISBN, title, author, category, version, publisher) )
+     con.commit()
+     msg = "書籍上架成功！"
+   except:
+    con.rollback()
+    msg = "書籍上架失敗，請聯絡電算中心！"
+   finally:
+    con.close()
+    return render_template("s_result.html",msg = msg)
 # 新增書籍
 
 # 新增一筆借閱紀錄
