@@ -242,7 +242,8 @@ def new_book():
     publisher = request.form["publisher"]
     with sql.connect("books.db") as con:
      cur = con.cursor()
-     cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?,?)",(ISBN, title, author, category, version, publisher) )
+     cur.execute("INSERT INTO books (ISBN, title, author, category, version, publisher) VALUES (?,?,?,?,?,?)"
+                 ,(ISBN, title, author, category, version, publisher) )
      con.commit()
      msg = "書籍上架成功！"
    except:
@@ -265,7 +266,8 @@ def new_report():
     title = request.form["title"]
     with sql.connect("reports.db") as con:
      cur = con.cursor()
-     cur.execute("INSERT INTO reports(User_id, book_no, title, issue, return_date) VALUES (?,?,?,?,?)",(SSN, ISBN, title, issue, return_date) )
+     cur.execute("INSERT INTO reports(User_id, book_no, title, issue, return_date) VALUES (?,?,?,?,?)"
+                 ,(SSN, ISBN, title, issue, return_date) )
      con.commit()
      msg = "借閱紀錄新增成功！"
    except:
